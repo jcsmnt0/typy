@@ -6,6 +6,7 @@ from functools import reduce, partial
 from collections import namedtuple, defaultdict, deque
 
 from typy.classes import *
+from typy import stdlib
 
 def extend(*xs):
     x = xs[0].copy()
@@ -537,18 +538,19 @@ def typecheckFunction(func, scopeTypes = {}, infer = typeInferrer(), logFile = N
 
     return []
 
-def typecheck(types = {}, infer = typeInferrer(), errFile = sys.stderr, logFile = None):
+def typecheck(identifierTypes = {}, overrides = stdlib.overrides, errFile = sys.stderr, logFile = None):
+    infer = typeInferrer(overrides)
     def check(x):
         if isinstance(x, type):
             errors = typecheckClass(
                 x,
-                scopeTypes = types,
+                scopeTypes = identifierTypes,
                 infer = infer,
                 logFile = logFile)
         else:
             errors = typecheckFunction(
                 x,
-                scopeTypes = types,
+                scopeTypes = identifierTypes,
                 infer = infer,
                 logFile = logFile)
 

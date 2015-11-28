@@ -1,7 +1,3 @@
-from sys import stdout
-from dis import get_instructions
-from pprint import pprint
-
 from typy.typecheck import *
 from typy.classes import *
 

@@ -1,7 +1,6 @@
 import inspect
 import types
 from collections import namedtuple
-from functools import reduce
 from random import choice
 
 def firstNonNone(*xs):
